@@ -1,19 +1,7 @@
-# KRRpackage
+# krr
 
-Kernel Ridge Regression (KRR) with Gaussian kernel implementation in R.
+Kernel Ridge Regression (KRR) with Gaussian kernel 
 
-## Author
-
-Minjoo Kim (Sungshin Women's University)
-
-## Installation
-
-You can install the package from GitHub:
-
-```r
-# install.packages("devtools")
-devtools::install_github("minjoo0760/KRRpackage")
-```
 
 ## Description
 
@@ -23,15 +11,14 @@ This package provides functions to fit and predict using Kernel Ridge Regression
 
 - `fit_krr()`: Fit a KRR model
 - `predict.krr()`: Make predictions on new data
-- `plot.krr()`: Visualize the fitted model
 - `gaussian_kernel()`: Compute Gaussian kernel values
 
 ## Basic Usage
 
-### Example 1: Simple Sinusoidal Data
+### Example
 
 ```r
-library(KRRpackage)
+library(krr)
 
 # Simulate regression data
 set.seed(1)
@@ -45,62 +32,8 @@ model <- fit_krr(X, y, lambda = 0.001, rho = 1)
 # Make predictions
 x_test <- seq(-1, 1, length.out = 100)
 y_pred <- predict(model, x_test)
-
-# Visualize results
-plot(model)
 ```
 
-### Example 2: Complex Function
-
-```r
-# Simulate more complex data
-set.seed(42)
-n <- 150
-X <- runif(n, -1, 1)
-y <- sin(2*pi*X) + 0.5*cos(4*pi*X) + rnorm(n, sd = 0.1)
-
-# Fit model
-model <- fit_krr(X, y, lambda = 0.0001, rho = 1)
-
-# Predict at specific points
-new_points <- c(-0.5, 0, 0.5)
-predictions <- predict(model, new_points)
-print(data.frame(x = new_points, y_pred = predictions))
-
-# Plot
-plot(model)
-```
-
-### Example 3: Parameter Tuning
-
-```r
-# Compare different regularization parameters
-model1 <- fit_krr(X, y, lambda = 0.001, rho = 1)
-model2 <- fit_krr(X, y, lambda = 0.01, rho = 1)
-model3 <- fit_krr(X, y, lambda = 0.1, rho = 1)
-
-# Predict on test grid
-x_test <- seq(-1, 1, length.out = 100)
-y_pred1 <- predict(model1, x_test)
-y_pred2 <- predict(model2, x_test)
-y_pred3 <- predict(model3, x_test)
-
-# Compare visually
-library(ggplot2)
-df <- data.frame(
-  x = rep(x_test, 3),
-  y = c(y_pred1, y_pred2, y_pred3),
-  lambda = factor(rep(c("0.001", "0.01", "0.1"), each = length(x_test)))
-)
-
-ggplot(df, aes(x = x, y = y, color = lambda)) +
-  geom_line(linewidth = 1) +
-  geom_point(data = data.frame(x = X, y = y), 
-             aes(x = x, y = y), color = "black", inherit.aes = FALSE) +
-  labs(title = "KRR with Different Lambda Values",
-       x = "x", y = "y") +
-  theme_minimal()
-```
 
 ## Parameters
 
@@ -120,9 +53,7 @@ ggplot(df, aes(x = x, y = y, color = lambda)) +
 - `object`: Fitted KRR model from `fit_krr()`
 - `newdata`: Numeric vector of new input points
 
-### `plot.krr(x)`
 
-- `x`: Fitted KRR model from `fit_krr()`
 
 ## Theory
 
@@ -171,13 +102,3 @@ model <- fit_krr(X_train, y_train, lambda = 0.01, rho = 1)
 X_new <- seq(0, 1, length.out = 50)
 y_pred <- predict(model, X_new)
 ```
-
-### Step 5: Visualize
-
-```r
-plot(model)
-```
-
-## License
-
-MIT License
