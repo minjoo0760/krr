@@ -55,25 +55,7 @@ y_pred <- predict(model, x_test)
 
 
 
-## Theory
-
-Kernel Ridge Regression solves:
-
-$$\min_{\alpha} ||y - K\alpha||^2 + \lambda \alpha^T K \alpha$$
-
-The solution is:
-
-$$\hat{\alpha} = (K + \lambda I)^{-1} y$$
-
-Predictions are made using:
-
-$$\hat{f}(x) = \sum_{i=1}^{n} \hat{\alpha}_i k(x, x_i)$$
-
-where the Gaussian kernel is:
-
-$$k(x, x') = \exp(-\rho(x-x')^2)$$
-
-## Step-by-Step Tutorial
+## Tutorial
 
 ### Step 1: Load the package
 
